@@ -30,9 +30,17 @@ class Battleship {
     
     enemies (){
       let positions = []
-      for (let i = 0; i < this.ships; i++){
-        positions.push([this.randomRow(),this.randomCol()])
-      }
+        while (positions.length < this.ships){
+          positions.push([this.randomRow(),this.randomCol()])
+          // removes duplicate arrays
+          for (let i= 0; i < positions.length; i++){
+            for (let j = 0; j < positions.length; j++){
+                if (i != j && positions[i].map(b => ''+b).join('') == positions[j].map(b => ''+b).join('')){
+                    positions.splice(j,1)
+                }
+            }
+          }
+        }
       return positions
     }
     
@@ -50,14 +58,16 @@ class Battleship {
   
     printBoard(){
       for (let i = 0; i < this.enemyCoordinates.length; i++){
-        this.board[this.enemyCoordinates[i][0]][this.enemyCoordinates[i][1]] = 'K'
+            this.board[this.enemyCoordinates[i][0]][this.enemyCoordinates[i][1]] = 'K'
       }
       for(let m = 0; m < this.inputCoordinates.length; m++){
         if (this.board[this.inputCoordinates[m][0]][this.inputCoordinates[m][1]] === 'K'){
           this.hitCount+=1
           this.board[this.inputCoordinates[m][0]][this.inputCoordinates[m][1]] = '*'
-        } else{
-          this.board[this.inputCoordinates[m][0]][this.inputCoordinates[m][1]] = 'O'
+        } else if (this.board[this.inputCoordinates[m][0]][this.inputCoordinates[m][1]] == '*'){;
+            continue;
+        } else {
+            this.board[this.inputCoordinates[m][0]][this.inputCoordinates[m][1]] = 'O'
         }
       }
       return this.output(this.board)
@@ -83,5 +93,5 @@ class Battleship {
 
   var argv = process.argv;
   var ship = new Battleship(argv[2], argv[3]);
-  
+  console.log(ship.enemies())
   console.log(ship.printBoard())
