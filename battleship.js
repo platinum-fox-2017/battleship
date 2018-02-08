@@ -1,5 +1,3 @@
-'use strict'
-
 class BattleShip {
   constructor(army_number,board,shotsAttempt){
     this.army = []
@@ -38,6 +36,9 @@ class BattleShip {
     }
 
     shots(){
+      for(let i = 0;i<this.shotsAttempt;i++){
+        let random1 = Math.floor(Math.random()*this.board)
+        let random2 = Math.floor(Math.random()*this.board)
         for (let j =0;j<this.board;j++){
           for(let k =0;k<this.board;k++){
             if(this.battleground[random1][random2] == 'K'){
@@ -51,7 +52,7 @@ class BattleShip {
     }
 }
 
-let jawa = new BattleShip(6,6)
+let jawa = new BattleShip(10,10,10)
 jawa.create_board()
 console.log(jawa.army);
 jawa.print_ships()
