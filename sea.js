@@ -77,7 +77,6 @@ class Sea{
                         this.board[cordinatX][cordinatY].push('S')
                     }
                     this.enemyOrShip.push(ship)
-                    console.log(this.enemyOrShip)
                     count++
                 }
             }
@@ -97,6 +96,7 @@ class Sea{
 
             if(i === 0){
                 shipCordinat.push(dot)
+                this.cordinat.push(dot)
             }else{
                 if(randomUpOrDow === 0 && plusOrMinus === 0 && x < this.board.length - 1){
                     x++   
@@ -109,8 +109,9 @@ class Sea{
                 }
 
                 combine = String(x)+String(y)
-
+                
                 if(this.shipCordinat.indexOf(combine) !== -1){
+                    
                     return false
                 }else{
                     shipCordinat.push(combine)
