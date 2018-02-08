@@ -15,4 +15,4 @@ for (var i = 0; i < input_argv[4].split(';').length; i++) {
 }
 
 var battleShip = new BattleShip(input_argv[2], input_argv[3], coordinateShot);
-console.log(battleShip.map);
+battleShip.map();

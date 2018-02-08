@@ -4,20 +4,36 @@ class BattleShip {
 	constructor(size, target, shotCoordinate) {
 		this.size = size;
 		this.target = target;
-		this.shotCoordinate = this.shotCoordinate;
+		this.shotCoordinate = shotCoordinate;
 		this.shipCoordinate = this.generateCoordinateShip(size, target);
-		this.map = this.generateMap(size, target);
 	}
 
-	generateMap(size, target) {
-		let arr = this.setAllMap('o', size);
-		let coordinate = this.shipCoordinate;
+	map() {
+		let arr = this.setAllMap(' ', this.size),
+			shipCoordinate = this.shipCoordinate,
+			shotCoordinate = this.shotCoordinate,
+			hitCoordinate = [];
 
-		for (let i = 0; i < coordinate.length; i++) {
-			arr[coordinate[i].x][coordinate[i].y] = 'x';
+		for (let i = 0; i < shipCoordinate.length; i++) {
+			arr[shipCoordinate[i].x][shipCoordinate[i].y] = 'x';
+			for (let j = 0; j < shotCoordinate.length; j++) {
+				if (shipCoordinate[i].x == shotCoordinate[j].x && shipCoordinate[i].y == shotCoordinate[j].y) {
+					hitCoordinate.push({
+						x: shotCoordinate[j].x,
+						y: shotCoordinate[j].y
+					});
+				} else {
+					arr[shotCoordinate[j].x][shotCoordinate[j].y] = '/';
+				}
+			}
 		}
 
-		return arr;
+		for (var i = 0; i < hitCoordinate.length; i++) {
+			arr[hitCoordinate[i].x][hitCoordinate[i].y] = '*';
+		}
+
+		console.log(arr);
+		console.log(`Anda berhasi mengenai ${hitCoordinate.length} kapal, dan meleset ${shotCoordinate.length - hitCoordinate.length} tembakan`);
 	}
 
 	generateCoordinateShip(size, target) {
