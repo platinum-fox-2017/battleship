@@ -6,6 +6,7 @@ class Battleship {
     this.boardSize = 10;
     this.shipPosition = this.generateShipPosition();
     this.board = this.genereateBoard(); 
+    this.kapalTenggelam = [];
   }
   generateKoordinatSerang(koordinat){
     var koordinatSerang = [];
@@ -35,12 +36,15 @@ class Battleship {
     var actualSize = this.boardSize * this.boardSize;
     var barisKe = 1;
     for(var i = 1; i <= actualSize; i++){
-      if(this.isShipPosition(barisKe,i)){
-        boardPerbaris.push('|<>|'); 
+      if(this.isShipPosition(barisKe,i) && this.isSerangPosition(barisKe,i)){
+        boardPerbaris.push('|<*>|'); 
+        console.log("===>===>====>===>Kapal Koordinat ",`${barisKe},${i}`,"Tenggelam")
+      } else if(this.isShipPosition(barisKe,i)){
+        boardPerbaris.push('|<_>|'); 
       } else if(this.isSerangPosition(barisKe,i)){
-        boardPerbaris.push('|**|');
+        boardPerbaris.push('|***|');
       } else {
-        boardPerbaris.push('|__|');
+        boardPerbaris.push('|___|');
       }
       if(i % this.boardSize  === 0 && i != 0){
         barisKe++;
@@ -82,10 +86,19 @@ class Battleship {
      console.log(boardPerbaris);
    }  
   }
+  printKapalTenggelam(){
+    for(var i = 0; i < this.kapalTenggelam.length; i++){
+      console.log(`====================> Kapal koordinat: ${kapalTenggelam[i]} Tenggelam`);   
+    }
+  }
+  printKeterangan (){
+    console.log('Keterangan: <_> adalah kapal , |___| adalah laut kosong, |<*>| adalah kapal yang kena serang')   
+  }
 }
 
 var argv = process.argv;
 var battle = new Battleship(argv[2],argv[3]);
 battle.printBoard();
+battle.printKeterangan();
 console.log("Posisi Kapal: ",battle.shipPosition);
 console.log("Koordinat Serang: ",battle.koodinatSerang);
