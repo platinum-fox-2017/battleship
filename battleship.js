@@ -1,20 +1,29 @@
 class Battleship{
-  constructor(area){
-    this.area = area
+  constructor(ship){
+    this.area = this.createBoard()
+    this.ship = ship
   }
 
   createBoard(){
     let size = []
-    for(let i=0; i<this.area; i++){
-      let row = []
-      for(let j=0; j<this.area; j++){
-        row.push('| |')
+    for(let i=0; i<=9; i++){
+      size.push([])
+      for(let j=0; j<=9; j++){
+        size[i].push(' ')
       }
-      size.push(row)
     }
     return size
   }
+
+  shipPosition(){
+    for(let i=0; i<this.ship; i++){
+      let randomCol = Math.ceil(Math.random() * 9)
+      let randomRow = Math.ceil(Math.random() * 9)
+      this.area[randomCol][randomRow] = 'K'
+    }
+    return this.area
+  }
 }
 
-const warShip = new Battleship(10)
-console.log(warShip.createBoard())
+var warShip = new Battleship(3)
+console.log(warShip.shipPosition())
