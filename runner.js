@@ -1,9 +1,12 @@
 'use strict'
 const Battleship = require('./battleship')
 
-const coordinate = process.argv[2]
+let ship = process.argv[2];
+let position = process.argv[3];
 
-const start = new Battleship ()
-console.log(start.printBoard())
+let start = new Battleship(ship, position.split(' '));
 
-
+start.shootPos()
+start.randomShipPos();
+start.insertShipIntoBoard();
+start.shootTheShips();
