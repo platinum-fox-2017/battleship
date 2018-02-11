@@ -6,6 +6,8 @@ let position = process.argv[3];
 
 let runShip = new Battleship(ship, position.split(' '));
 
-// console.log(runShip.randomShipPos());
+runShip.shootPos()
+runShip.randomShipPos();
 // console.log(runShip.createBoard());
-console.log(runShip.insertShipIntoBoard());
+runShip.insertShipIntoBoard();
+runShip.shootTheShips();
